@@ -1,0 +1,16 @@
+---
+# tasks file for user_create
+- name: Creez un utilisateur sur un hote distant
+  become: yes
+  user:
+    name: '{{user_name}}'
+    state: '{{user_state}}'
+    remove: yes
+    shell: /bin/bash
+    append: yes
+
+- name: Ajouter le bashrc pour inclure l’hôte et le user
+  become: yes
+  template:
+    dest: '~{{user_name}}/.bashrc'
+    src: templates/bashrc.j2
